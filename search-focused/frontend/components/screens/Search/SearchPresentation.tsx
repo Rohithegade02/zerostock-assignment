@@ -1,9 +1,7 @@
 import { SearchFilters, SortConfig, SortField, Product } from '@/lib/types';
-import { SearchBar } from '../../molecules/search-bar';
-import { FilterPanel } from '../../molecules/filter-panel';
-import { ProductTable } from '../../molecules/product-table';
-import { EmptyState } from '../../molecules/empty-state';
-import { Skeleton } from '@/components/atoms/skeleton';
+import { Skeleton } from '@/components/atoms';
+import { SearchBar, FilterPanel, ProductTable, EmptyState } from '@/components/molecules';
+
 
 interface SearchPresentationProps {
   filters: SearchFilters;

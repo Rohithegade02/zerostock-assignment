@@ -24,7 +24,6 @@ const COLUMNS: { key: SortField; label: string }[] = [
   { key: 'name', label: 'Product Name' },
   { key: 'category', label: 'Category' },
   { key: 'price', label: 'Price' },
-  { key: 'rating', label: 'Rating' },
   { key: 'stock', label: 'Stock Status' },
 ];
 
@@ -86,12 +85,6 @@ export function ProductTable({ products, total, sort, onSortChange }: ProductTab
                 </TableCell>
                 <TableCell className="font-mono font-semibold text-[#7C3AED]">
                   {formatPrice(p.price)}
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-1">
-                    <span className="text-amber-400 text-sm">★</span>
-                    <span className="text-sm font-medium">{p.rating}</span>
-                  </div>
                 </TableCell>
                 <TableCell>
                   {p.stock > 0 ? (

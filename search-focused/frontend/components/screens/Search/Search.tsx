@@ -8,17 +8,17 @@ import { sortProducts } from '@/lib/filter-utils';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000';
 
-export const DEFAULT_FILTERS: SearchFilters = new Map([
-  ['query', ''],
-  ['category', 'All'],
-  ['minPrice', ''],
-  ['maxPrice', ''],
-]);
+export const DEFAULT_FILTERS: SearchFilters = {
+  query: '',
+  category: 'All',
+  minPrice: '',
+  maxPrice: '',
+};
 
-export const DEFAULT_SORT: SortConfig = new Map([
-  ['field', 'name'],
-  ['direction', 'asc'],
-]);
+export const DEFAULT_SORT: SortConfig = {
+  field: 'name',
+  direction: 'asc',
+};
 // Container: wires the model hook → presentation component
 export const Search = () => {
   const [filters, setFilters] = useState<SearchFilters>(DEFAULT_FILTERS);
@@ -33,10 +33,10 @@ export const Search = () => {
     setError(null);
     try {
       const params = new URLSearchParams();
-      if (filters.get('query')?.trim()) params.append('q', filters.get('query')!.trim());
-      if (filters.get('category') !== 'All') params.append('category', filters.get('category')!);
-      if (filters.get('minPrice') !== '') params.append('minPrice', filters.get('minPrice')!);
-      if (filters.get('maxPrice') !== '') params.append('maxPrice', filters.get('maxPrice')!);
+      if (filters.query.trim()) params.append('q', filters.query.trim());
+      if (filters.category !== 'All') params.append('category', filters.category);
+      if (filters.minPrice !== '') params.append('minPrice', filters.minPrice);
+      if (filters.maxPrice !== '') params.append('maxPrice', filters.maxPrice);
 
       const res = await fetch(`${API_BASE}/search?${params}`);
       if (!res.ok) throw new Error(`Server error ${res.status}`);
@@ -53,7 +53,9 @@ export const Search = () => {
     }
   }, [filters]);
 
-  useEffect(() => { fetchProducts(); }, [fetchProducts]);
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   // Only sorting stays on the client — filtering is owned by the backend
   const sortedProducts = useMemo(
@@ -61,19 +63,18 @@ export const Search = () => {
     [products, sort],
   );
 
-  const handleFilterChange = (patch: Partial<SearchFilters>) =>
-    setFilters((prev) => ({ ...prev, ...patch }));
+  const handleFilterChange = useCallback((patch: Partial<SearchFilters>) =>
+    setFilters((prev) => ({ ...prev, ...patch })),
+    []);
 
-  const handleSortChange = (field: SortField) =>
-    setSort((prev) => {
-      const currentDirection = prev.get('direction');
-      return new Map([
-        ['field', field],
-        ['direction', currentDirection === 'asc' ? 'desc' : 'asc'],
-      ]);
-    });
+  const handleSortChange = useCallback((field: SortField) =>
+    setSort((prev) => ({
+      field,
+      direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc',
+    })),
+    []);
 
-  const handleClearFilters = () => setFilters(DEFAULT_FILTERS);
+  const handleClearFilters = useCallback(() => setFilters(DEFAULT_FILTERS), []);
 
   return (
     <SearchPresentation

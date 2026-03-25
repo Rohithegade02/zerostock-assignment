@@ -19,6 +19,14 @@ export interface Product {
   stock: number;
 }
 
-export type SearchFilters = Map<string, string>;
+export interface SearchFilters {
+  query: string;
+  category: Category;
+  minPrice: string;
+  maxPrice: string;
+}
 
-export type SortConfig = Map<string, string>;
+export interface SortConfig {
+  field: SortField;
+  direction: SortDirection;
+}

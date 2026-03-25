@@ -2,7 +2,8 @@
 
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/atoms/input';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
 
 interface SearchBarProps {
   value: string;
@@ -11,22 +12,26 @@ interface SearchBarProps {
 
 export function SearchBar({ value, onChange }: SearchBarProps) {
   const [local, setLocal] = useState(value);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const debouncedLocal = useDebounce(local, 300);
 
   // Sync external resets (e.g. "Clear all filters")
   useEffect(() => { setLocal(value); }, [value]);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const val = e.target.value;
-    setLocal(val);
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => onChange(val), 300);
-  }
+  // Propagate debounced changes upstream
+  useEffect(() => {
+    if (debouncedLocal !== value) {
+      onChange(debouncedLocal);
+    }
+  }, [debouncedLocal, onChange, value]);
 
-  function handleClear() {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocal(e.target.value);
+  }, []);
+
+  const handleClear = useCallback(() => {
     setLocal('');
     onChange('');
-  }
+  }, [onChange]);
 
   return (
     <div className="relative group">
