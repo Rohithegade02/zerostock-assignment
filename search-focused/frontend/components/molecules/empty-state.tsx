@@ -1,5 +1,5 @@
 import { SearchX } from 'lucide-react';
-import { Button } from '@/components/atoms/button';
+import { Button } from '@/components/atoms';
 
 interface EmptyStateProps {
   onClear: () => void;

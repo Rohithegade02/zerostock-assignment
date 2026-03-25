@@ -2,14 +2,7 @@
 
 import { Category, SearchFilters } from '@/lib/types';
 import { CATEGORIES, isPriceRangeValid } from '@/lib/filter-utils';
-import { Input } from '@/components/atoms/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/atoms/select';
+import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms';
 import { Tag, IndianRupee, AlertCircle } from 'lucide-react';
 
 interface FilterPanelProps {
@@ -64,11 +57,10 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
               placeholder="Min"
               value={filters.minPrice}
               onChange={(e) => onChange({ minPrice: e.target.value })}
-              className={`pl-7 h-10 rounded-xl transition-all ${
-                !priceValid
-                  ? 'border-destructive focus-visible:ring-destructive/40'
-                  : 'focus-visible:ring-[#7C3AED]/40 focus-visible:border-[#7C3AED]'
-              }`}
+              className={`pl-7 h-10 rounded-xl transition-all ${!priceValid
+                ? 'border-destructive focus-visible:ring-destructive/40'
+                : 'focus-visible:ring-[#7C3AED]/40 focus-visible:border-[#7C3AED]'
+                }`}
             />
           </div>
           <div className="relative">
@@ -80,11 +72,10 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
               placeholder="Max"
               value={filters.maxPrice}
               onChange={(e) => onChange({ maxPrice: e.target.value })}
-              className={`pl-7 h-10 rounded-xl transition-all ${
-                !priceValid
-                  ? 'border-destructive focus-visible:ring-destructive/40'
-                  : 'focus-visible:ring-[#7C3AED]/40 focus-visible:border-[#7C3AED]'
-              }`}
+              className={`pl-7 h-10 rounded-xl transition-all ${!priceValid
+                ? 'border-destructive focus-visible:ring-destructive/40'
+                : 'focus-visible:ring-[#7C3AED]/40 focus-visible:border-[#7C3AED]'
+                }`}
             />
           </div>
         </div>

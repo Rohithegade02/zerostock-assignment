@@ -21,17 +21,17 @@ interface ProductTableProps {
 }
 
 const COLUMNS: { key: SortField; label: string }[] = [
-  { key: 'name',     label: 'Product Name' },
-  { key: 'category', label: 'Category'     },
-  { key: 'price',    label: 'Price'        },
-  { key: 'rating',   label: 'Rating'       },
-  { key: 'stock',    label: 'Stock Status' },
+  { key: 'name', label: 'Product Name' },
+  { key: 'category', label: 'Category' },
+  { key: 'price', label: 'Price' },
+  { key: 'rating', label: 'Rating' },
+  { key: 'stock', label: 'Stock Status' },
 ];
 
 function SortIcon({ field, sort }: { field: SortField; sort: SortConfig }) {
   if (sort.field !== field) return <ChevronsUpDown size={14} className="text-muted-foreground/50" />;
   return sort.direction === 'asc'
-    ? <ChevronUp  size={14} className="text-[#7C3AED]" />
+    ? <ChevronUp size={14} className="text-[#7C3AED]" />
     : <ChevronDown size={14} className="text-[#7C3AED]" />;
 }
 
@@ -70,9 +70,8 @@ export function ProductTable({ products, total, sort, onSortChange }: ProductTab
             {products.map((p, idx) => (
               <TableRow
                 key={p.id}
-                className={`transition-colors hover:bg-violet-50/60 ${
-                  idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'
-                }`}
+                className={`transition-colors hover:bg-violet-50/60 ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'
+                  }`}
               >
                 <TableCell className="font-medium max-w-[200px]">
                   <div>
