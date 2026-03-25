@@ -4,6 +4,7 @@ import { SearchBar, FilterPanel, ProductTable, EmptyState } from '@/components/m
 
 
 interface SearchPresentationProps {
+  categories: string[];
   filters: SearchFilters;
   sort: SortConfig;
   products: Product[];
@@ -16,6 +17,7 @@ interface SearchPresentationProps {
 }
 
 export default function SearchPresentation({
+  categories,
   filters,
   sort,
   products,
@@ -39,7 +41,7 @@ export default function SearchPresentation({
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sticky filter sidebar */}
         <aside className="lg:col-span-1 border border-border/50 bg-white/50 backdrop-blur-sm rounded-2xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] h-fit lg:sticky lg:top-8">
-          <FilterPanel filters={filters} onChange={onFilterChange} />
+          <FilterPanel categories={categories} filters={filters} onChange={onFilterChange} />
         </aside>
 
         {/* Results */}

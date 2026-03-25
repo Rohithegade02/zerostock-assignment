@@ -1,19 +1,12 @@
-export type Category =
-  | 'All'
-  | 'Electronics'
-  | 'Clothing'
-  | 'Books'
-  | 'Home & Garden'
-  | 'Sports';
 
-export type SortField = 'name' | 'category' | 'price' | 'rating' | 'stock';
+export type SortField = 'name' | 'category' | 'price' | 'stock';
 export type SortDirection = 'asc' | 'desc';
 
 export interface Product {
   id: string;
   name: string;
   description: string;
-  category: Exclude<Category, 'All'>;
+  category: string;
   price: number;
   rating: number;
   stock: number;
@@ -21,7 +14,7 @@ export interface Product {
 
 export interface SearchFilters {
   query: string;
-  category: Category;
+  category: string;
   minPrice: string;
   maxPrice: string;
 }

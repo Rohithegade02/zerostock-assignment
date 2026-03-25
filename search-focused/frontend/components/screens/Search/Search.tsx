@@ -25,6 +25,7 @@ export const Search = () => {
   const [sort, setSort] = useState<SortConfig>(DEFAULT_SORT);
   const [products, setProducts] = useState<Product[]>([]);
   const [totalProducts, setTotalProducts] = useState(0);
+  const [categories, setCategories] = useState<string[]>(['All']);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,10 +43,26 @@ export const Search = () => {
       if (!res.ok) throw new Error(`Server error ${res.status}`);
 
       const json = await res.json();
-      setProducts(json.data ?? []);
+      const newProducts = json.data ?? [];
+      setProducts(newProducts);
       setTotalProducts(json.total ?? 0);
+
+      setCategories((prev) => {
+        const catSet = new Set(prev);
+        let added = false;
+        newProducts.forEach((p: Product) => {
+          if (p.category && !catSet.has(p.category)) {
+            catSet.add(p.category);
+            added = true;
+          }
+        });
+        if (added) {
+          const others = Array.from(catSet).filter(c => c !== 'All').sort();
+          return ['All', ...others];
+        }
+        return prev;
+      });
     } catch (err) {
-      console.error('[useSearchModel]', err);
       setError('Could not load products. Is the backend running?');
       setProducts([]);
     } finally {
@@ -78,6 +95,7 @@ export const Search = () => {
 
   return (
     <SearchPresentation
+      categories={categories}
       filters={filters}
       sort={sort}
       products={products}

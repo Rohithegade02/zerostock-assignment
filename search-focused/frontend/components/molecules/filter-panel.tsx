@@ -1,16 +1,17 @@
 'use client';
 
-import { Category, SearchFilters } from '@/lib/types';
-import { CATEGORIES, isPriceRangeValid } from '@/lib/filter-utils';
+import { SearchFilters } from '@/lib/types';
+import { isPriceRangeValid } from '@/lib/filter-utils';
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms';
 import { Tag, IndianRupee, AlertCircle } from 'lucide-react';
 
 interface FilterPanelProps {
+  categories: string[];
   filters: SearchFilters;
   onChange: (filters: Partial<SearchFilters>) => void;
 }
 
-export function FilterPanel({ filters, onChange }: FilterPanelProps) {
+export function FilterPanel({ categories, filters, onChange }: FilterPanelProps) {
   const priceValid = isPriceRangeValid(filters.minPrice, filters.maxPrice);
 
   return (
@@ -23,7 +24,7 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
         </label>
         <Select
           value={filters.category}
-          onValueChange={(val) => onChange({ category: val as Category })}
+          onValueChange={(val) => onChange({ category: val })}
         >
           <SelectTrigger
             id="category-select"
@@ -32,7 +33,7 @@ export function FilterPanel({ filters, onChange }: FilterPanelProps) {
             <SelectValue placeholder="All categories" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <SelectItem key={cat} value={cat} className="cursor-pointer">
                 {cat}
               </SelectItem>
