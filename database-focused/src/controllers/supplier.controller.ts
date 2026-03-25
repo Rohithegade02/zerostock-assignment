@@ -3,6 +3,8 @@ import { SupplierService } from '../services/supplier.service';
 
 const supplierService = new SupplierService();
 
+// @desc Create a new supplier
+
 export const createSupplier = async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, city } = req.body;

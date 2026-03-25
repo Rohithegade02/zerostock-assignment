@@ -6,23 +6,23 @@ export interface IInventory extends Document {
   quantity: number;
   price: number;
 }
-
+// schema for inventory
 const inventorySchema = new Schema<IInventory>(
   {
-    supplier_id: { 
-      type: Schema.Types.ObjectId, 
-      ref: 'Supplier', 
+    supplier_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Supplier',
       required: true,
       index: true // Optimization: Indexing on supplier_id to speed up aggregation/lookups
     },
     product_name: { type: String, required: true },
-    quantity: { 
-      type: Number, 
-      required: true, 
-      min: [0, 'Quantity cannot be negative'] 
+    quantity: {
+      type: Number,
+      required: true,
+      min: [0, 'Quantity cannot be negative']
     },
-    price: { 
-      type: Number, 
+    price: {
+      type: Number,
       required: true,
       validate: {
         validator: (v: number) => v > 0,

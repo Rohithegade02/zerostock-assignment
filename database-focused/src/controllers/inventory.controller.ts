@@ -3,6 +3,8 @@ import { InventoryService } from '../services/inventory.service';
 
 const inventoryService = new InventoryService();
 
+// @desc Create a new inventory item
+
 export const createInventory = async (req: Request, res: Response): Promise<void> => {
   try {
     const inventory = await inventoryService.createInventory(req.body);
@@ -15,6 +17,8 @@ export const createInventory = async (req: Request, res: Response): Promise<void
     }
   }
 };
+
+// @desc Get all inventory items grouped by supplier
 
 export const getInventory = async (req: Request, res: Response): Promise<void> => {
   try {

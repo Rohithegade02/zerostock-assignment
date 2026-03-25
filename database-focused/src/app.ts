@@ -12,6 +12,7 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 
+// @desc MongoDB connection
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/zerostock_db_assignment';
 
 mongoose.connect(MONGO_URI)

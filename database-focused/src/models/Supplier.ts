@@ -4,7 +4,7 @@ export interface ISupplier extends Document {
   name: string;
   city: string;
 }
-
+// schema for supplier
 const supplierSchema = new Schema<ISupplier>(
   {
     name: { type: String, required: true },

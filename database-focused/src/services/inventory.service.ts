@@ -2,9 +2,10 @@ import { Inventory, IInventory } from '../models/Inventory';
 import { Supplier } from '../models/Supplier';
 
 export class InventoryService {
+  // @desc Create a new inventory item
   async createInventory(payload: any): Promise<IInventory> {
     const { supplier_id, product_name, quantity, price } = payload;
-    
+
     const supplierExists = await Supplier.findById(supplier_id);
     if (!supplierExists) {
       throw new Error('Valid supplier is required. Supplier not found.');
@@ -19,6 +20,7 @@ export class InventoryService {
     return await inventory.save();
   }
 
+  // @desc Get all inventory items grouped by supplier
   async getGroupedInventory(): Promise<any> {
     return await Inventory.aggregate([
       {

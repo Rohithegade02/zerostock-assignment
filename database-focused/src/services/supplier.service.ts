@@ -1,6 +1,7 @@
 import { Supplier, ISupplier } from '../models/Supplier';
 
 export class SupplierService {
+  // @desc Create a new supplier
   async createSupplier(name: string, city: string): Promise<ISupplier> {
     if (!name || !city) {
       throw new Error('Name and city are required');
