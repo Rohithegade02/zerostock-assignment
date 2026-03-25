@@ -1,4 +1,4 @@
-import { SearchFilters, SortConfig, SortField, Product } from '@/lib/types';
+import { SearchFilters, SortConfig, SortField, Product } from '@/types';
 import { Skeleton } from '@/components/atoms';
 import { SearchBar, FilterPanel, ProductTable, EmptyState } from '@/components/molecules';
 

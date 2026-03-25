@@ -1,6 +1,6 @@
 'use client';
 
-import { Product, SortConfig, SortField } from '@/lib/types';
+import { Product, SortConfig, SortField } from '@/types';
 import { formatPrice } from '@/lib/filter-utils';
 import {
   Table,

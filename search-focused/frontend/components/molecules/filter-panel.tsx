@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchFilters } from '@/lib/types';
+import { SearchFilters } from '@/types';
 import { isPriceRangeValid } from '@/lib/filter-utils';
 import { Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms';
 import { Tag, IndianRupee, AlertCircle } from 'lucide-react';

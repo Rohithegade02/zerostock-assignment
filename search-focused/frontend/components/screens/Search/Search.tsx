@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import SearchPresentation from './SearchPresentation';
-import { Product, SearchFilters, SortConfig, SortField } from '@/lib/types';
+import { Product, SearchFilters, SortConfig, SortField } from '@/types';
 import { sortProducts } from '@/lib/filter-utils';
 
 
